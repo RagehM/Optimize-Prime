@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Optimize Prime</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        background-color: #2c2c2c;
+        font-family: Arial, sans-serif;
+        color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        text-align: center;
+      }
+
+      .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 20px;
+        max-width: 100%;
+      }
+
+      img.optimus {
+        height: 200px;
+        width: 200px;
+        margin-bottom: 30px;
+      }
+
+      .arrow-controls {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+      }
+
+      .horizontal-arrows {
+        display: flex;
+        justify-content: center;
+        gap: 50px;
+      }
+
+      .arrow img {
+        width: 60px;
+        height: 60px;
+        cursor: pointer;
+        transition: transform 0.2s ease;
+      }
+
+      .arrow img:hover {
+        transform: scale(1.1);
+      }
+
+      .button-section {
+        display: flex;
+        gap: 15px;
+        margin-top: 30px;
+      }
+
+      button {
+        background-color: #1e90ff;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        padding: 10px 20px;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+      }
+
+      button:hover {
+        background-color: #1c86ee;
+        transform: scale(1.05);
+      }
+
+      .status {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        margin-top: 20px;
+      }
+
+      .status h1 {
+        font-size: 1.2rem;
+      }
+
+      @media (max-width: 768px) {
+        img.optimus {
+          height: 150px;
+          width: 150px;
+        }
+
+        .arrow img {
+          width: 50px;
+          height: 50px;
+        }
+
+        button {
+          padding: 8px 12px;
+          font-size: 0.9rem;
+        }
+      }
+
+      @media (max-width: 480px) {
+        img.optimus {
+          height: 120px;
+          width: 120px;
+        }
+
+        .arrow img {
+          width: 40px;
+          height: 40px;
+        }
+
+        button {
+          padding: 6px 10px;
+          font-size: 0.8rem;
+        }
+
+        .status h1 {
+          font-size: 1rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <img
+        class="optimus"
+        src="https://i.imghippo.com/files/aue3999Hec.png"
+        alt="Optimus Prime"
+      />
+
+      <div class="arrow-controls">
+        <div class="arrow">
+          <img
+            src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWFycm93LXVwIj48cGF0aCBkPSJtNSAxMiA3LTcgNyA3Ii8+PHBhdGggZD0iTTEyIDE5VjUiLz48L3N2Zz4="
+            alt="Up"
+            id="forward"
+          />
+        </div>
+
+        <div class="horizontal-arrows">
+          <div class="arrow">
+            <img
+              src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWFycm93LWxlZnQiPjxwYXRoIGQ9Im0xMiAxOS03LTcgNy03Ii8+PHBhdGggZD0iTTE5IDEySDUiLz48L3N2Zz4="
+              alt="Left"
+              id="left"
+            />
+          </div>
+          <div class="arrow">
+            <img
+              src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWFycm93LXJpZ2h0Ij48cGF0aCBkPSJNNSAxMmgxNCIvPjxwYXRoIGQ9Im0xMiA1IDcgNy03IDciLz48L3N2Zz4="
+              alt="Right"
+              id="right"
+            />
+          </div>
+        </div>
+
+        <div class="arrow">
+          <img
+            src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWFycm93LWRvd24iPjxwYXRoIGQ9Ik0xMiA1djE0Ii8+PHBhdGggZD0ibTE5IDEyLTcgNy03LTciLz48L3N2Zz4="
+            alt="Down"
+            id="backward"
+          />
+        </div>
+      </div>
+
+      <div class="button-section">
+        <button id="transform">Transform</button>
+        <button id="mic">Enable Mic</button>
+        <button id="wave">Wave</button>
+      </div>
+
+      <div class="status">
+        <h1 id="form">
+          Form:
+          <!--#state-->
+        </h1>
+        <h1 id="cameraText">
+          Camera:
+          <!--#camera-->
+        </h1>
+        <h1 id="micText">
+          Mic:
+          <!--#micFlag-->
+        </h1>
+      </div>
+    </div>
+    <script>
+      const forward = document.getElementById("forward");
+      const left = document.getElementById("left");
+      const right = document.getElementById("right");
+      const backward = document.getElementById("backward");
+      const transform = document.getElementById("transform");
+      const mic = document.getElementById("mic");
+      const wave = document.getElementById("wave");
+      const micText = document.getElementById("micText");
+      const cameraText = document.getElementById("cameraText");
+      const form = document.getElementById("form");
+      if ("<!--#micFlag-->" === "0") {
+        micText.innerText = "Mic: Disabled";
+        mic.innerText = "Enable Mic";
+      }
+      if ("<!--#micFlag-->" === "1") {
+        micText.innerText = "Mic: Enabled";
+        mic.innerText = "Disable Mic";
+      }
+      if ("<!--#camera-->" === "0") {
+        cameraText.innerText = "Camera: No Detection";
+      }
+      if ("<!--#camera-->" === "1") {
+        cameraText.innerText = "Camera: Detected";
+      }
+      if ("<!--#state-->" == 0) {
+        transform.innerText = "Transform";
+        form.innerText = "Form: humanoid";
+      }
+      if ("<!--#state-->" == 1) {
+        transform.innerText = "Roll Back";
+        form.innerText = "Form: Car";
+      }
+      transform.addEventListener("click", () => {
+        window.location.href = "transform";
+      });
+      mic.addEventListener("click", () => {
+        window.location.href = "mic";
+      });
+      wave.addEventListener("click", () => {
+        window.location.href = "wave";
+      });
+      forward.addEventListener("click", () => {
+        window.location.href = "forward";
+      });
+      left.addEventListener("click", () => {
+        window.location.href = "left";
+      });
+      right.addEventListener("click", () => {
+        window.location.href = "right";
+      });
+      backward.addEventListener("click", () => {
+        window.location.href = "backward";
+      });
+      setInterval(() => {
+        window.location.reload();
+      }, 3000);
+    </script>
+  </body>
+</html>

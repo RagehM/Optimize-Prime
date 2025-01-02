@@ -15,7 +15,7 @@ Servo::Servo(uint8_t gp, float start, bool secondChannel, int ROTATE_0, int ROTA
 	this->ROTATE_180 = ROTATE_180;
 	gpio_init(gp);
 
-	//Setup up PWM t
+	//Setup up PWM
 	gpio_set_function(gp, GPIO_FUNC_PWM);
 	pwm_set_gpio_level(gp, 0);
 	if (!secondChannel){

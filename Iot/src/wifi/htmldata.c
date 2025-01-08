@@ -1,3 +1,5 @@
+// here is the parsed index.shtml file using the python script (makefsdata.py)
+// NOTE that after modifing the html file you need to run the python script using python makefsdata.py to parse it again
 static const unsigned char data_index_shtml[] = {
 	/* .\index.shtml */
 	0x2f, 0x69, 0x6e, 0x64, 0x65, 0x78, 0x2e, 0x73, 0x68, 0x74, 0x6d, 0x6c, 0,

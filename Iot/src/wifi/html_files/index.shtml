@@ -181,6 +181,8 @@
         <button id="wave">Wave</button>
       </div>
 
+      <!--NOTE that here you have to specify the variable you want to show on the UI using this-->
+      <!--#variable-->
       <div class="status">
         <h1 id="form">
           Form:
@@ -250,6 +252,7 @@
       backward.addEventListener("click", () => {
         window.location.href = "backward";
       });
+      // refresh the page every 3 seconds to get the updated values
       setInterval(() => {
         window.location.reload();
       }, 3000);

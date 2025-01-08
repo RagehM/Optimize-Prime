@@ -1,3 +1,21 @@
+
+/**
+ *******************************************************************************
+ * @file    main.cpp 
+ * @author  MaroSalah02
+ * @version V1.0.0
+ * @date    16-December-2024
+ * @brief   This is the main folder for the bottom part of the robot (Code is for Arduino Nano RP2040).
+ *          The code is responsible for reading the built-in microphone data, then giving it to the classifier
+ *          to check if a person said "Transform" or not. The code is responsible for handling the bottom
+ *          sequence of the transformation with the Servo and ServoCluster libraries.
+ *******************************************************************************
+ 
+ */
+
+
+
+// Importing Library 
 #include <stdio.h>
 #include "Servo.h"
 #include <i2c.h>
@@ -24,7 +42,7 @@ const struct pdm_microphone_config config = {
     .pio = pio0,
 
     // PIO State Machine instance to use
-    .pio_sm = 0,
+    .pio_sm = 0, 
 
     // sample rate in Hz
     .sample_rate = 16000,
@@ -33,6 +51,7 @@ const struct pdm_microphone_config config = {
     .sample_buffer_size = 128,
 };
 
+// Getting the input size for the TinyML Classifier   
 #define FEATURE_SIZE EI_CLASSIFIER_DSP_INPUT_FRAME_SIZE
 
 float features[FEATURE_SIZE];
@@ -42,18 +61,24 @@ int buffer_length = 0;
 volatile int samples_read = 0;
 size_t feature_index = 0;
 
+
+// Clearing the buffer to avoid Overflow
 void clear_buffer() {
     memset(buffer, 0, sizeof(buffer));
 }
+
+// Clearing the Features to avoid Overflow
 void clear_features() {
     feature_index = 0;
     memset(features, 0, sizeof(features));
 }
+
 int raw_feature_get_data(size_t offset, size_t length, float *out_ptr) {
   memcpy(out_ptr, buffer + offset, length * sizeof(float));
   return 0;
 }
 
+// printing the result of Classifier 
 void print_inference_result(ei_impulse_result_t result) {
 
     // Print how long it took to perform inference
@@ -63,35 +88,35 @@ void print_inference_result(ei_impulse_result_t result) {
             result.timing.anomaly);
 
     // Print the prediction results (object detection)
-#if EI_CLASSIFIER_OBJECT_DETECTION == 1
-    ei_printf("Object detection bounding boxes:\r\n");
-    for (uint32_t i = 0; i < result.bounding_boxes_count; i++) {
-        ei_impulse_result_bounding_box_t bb = result.bounding_boxes[i];
-        if (bb.value == 0) {
-            continue;
-        }
-        ei_printf("  %s (%f) [ x: %u, y: %u, width: %u, height: %u ]\r\n",
-                bb.label,
-                bb.value,
-                bb.x,
-                bb.y,
-                bb.width,
-                bb.height);
-    }
+	#if EI_CLASSIFIER_OBJECT_DETECTION == 1
+		ei_printf("Object detection bounding boxes:\r\n");
+		for (uint32_t i = 0; i < result.bounding_boxes_count; i++) {
+			ei_impulse_result_bounding_box_t bb = result.bounding_boxes[i];
+			if (bb.value == 0) {
+				continue;
+			}
+			ei_printf("  %s (%f) [ x: %u, y: %u, width: %u, height: %u ]\r\n",
+					bb.label,
+					bb.value,
+					bb.x,
+					bb.y,
+					bb.width,
+					bb.height);
+		}
 
-    // Print the prediction results (classification)
-#else
-    ei_printf("Predictions:\r\n");
-    for (uint16_t i = 0; i < EI_CLASSIFIER_LABEL_COUNT; i++) {
-        ei_printf("  %s: ", ei_classifier_inferencing_categories[i]);
-        ei_printf("%.5f\r\n", result.classification[i].value);
-    }
-#endif
+		// Print the prediction results (classification)
+	#else
+		ei_printf("Predictions:\r\n");
+		for (uint16_t i = 0; i < EI_CLASSIFIER_LABEL_COUNT; i++) {
+			ei_printf("  %s: ", ei_classifier_inferencing_categories[i]);
+			ei_printf("%.5f\r\n", result.classification[i].value);
+		}
+	#endif
 
-    // Print anomaly result (if it exists)
-#if EI_CLASSIFIER_HAS_ANOMALY == 1
-    ei_printf("Anomaly prediction: %.3f\r\n", result.anomaly);
-#endif
+		// Print anomaly result (if it exists)
+	#if EI_CLASSIFIER_HAS_ANOMALY == 1
+		ei_printf("Anomaly prediction: %.3f\r\n", result.anomaly);
+	#endif
 
 }
 void on_pdm_samples_ready()
@@ -107,6 +132,7 @@ void on_pdm_samples_ready()
 
 #define DELAY 3000
 int i = 0;
+// This is the i2c Codes that is being sent and recieved by Pico and Arduino
 uint8_t send_buffer[8] = "0R";
 uint8_t send_buffer2[8] = "0O";
 uint8_t send_buffer3[8] = "0M";
@@ -116,7 +142,7 @@ ServoCluster* globalservosThighKneesandFeet = nullptr;
 
 bool transform = false;
 bool state = 0;
-
+// This is the sequence to transform from Human to Truck
 void TransformLower(ServoCluster &servosThighKneesandFeet) {
 	printf("Transforming to Lower\n");
 
@@ -137,6 +163,7 @@ void TransformLower(ServoCluster &servosThighKneesandFeet) {
 	sleep_ms(5000);
 }
 
+// This is the sequence to transform from Truck to Human
 void transformBack(ServoCluster &servosThighKneesandFeet) {
 	printf("Transforming Back\n");
 
@@ -154,7 +181,7 @@ void transformBack(ServoCluster &servosThighKneesandFeet) {
 }
 
 
-
+// This is the input Handler for gpio pin 
 void inputPinHandler(uint gpio, uint32_t events) {
 	printf("Input Pin Handler\n");
 	transform = true;
@@ -226,16 +253,17 @@ int main() {
 	while (true) {
 		//sleep_ms(2000);
 		printf("%i \n", gpio_get(inputPin));
-		// if(gpio_get(inputPin) == 1) {
-		// 	if(state == 1) {
-		// 		transformBack(servosThighKneesandFeet);
-		// 		state = 0;
-		// 	}
-		// 	else if(state == 0) {
-		// 		TransformLower(servosThighKneesandFeet);
-		// 		state = 1;
-		// 	}
-		// }
+		// This part checks if it recieves a signal to transform from the pico
+		if(gpio_get(inputPin) == 1) {
+			if(state == 1) {
+				transformBack(servosThighKneesandFeet);
+				state = 0;
+			}
+			else if(state == 0) {
+				TransformLower(servosThighKneesandFeet);
+				state = 1;
+			}
+		}
 		while (samples_read == 0) {
 				tight_loop_contents();
 			}
@@ -280,5 +308,5 @@ int main() {
 		// printf("Will Start Receiving: %s\n", receive_buffer);
 		// i2c_read_blocking(I2C_PORT, SLAVE_ADDRESS, receive_buffer, 8, false);
 		// printf("Received: %s\n", receive_buffer);
-}
+	}
 }

@@ -9,20 +9,34 @@
 ## 📑 Table of Contents
 
 1. [About the Project](#about-the-project)
-2. [Features](#features)
-3. [Components](#Components)
-4. [What is in the Repo](#repo)
-5. [Currently Working on](#currently-working-on)
-6. [The Team Behind this Project](#Team)
-7. [Acknowledgements](#acknowledgements)
-8. [Youtube Playlist](#Youtube)
-9. [License](#license)
+2. [Badges](#badges)
+3. [Features](#features)
+4. [Components](#Components)
+5. [What is in the Repo](#repo)
+6. [Currently Working on](#currently-working-on)
+7. [The Team Behind this Project](#Team)
+8. [Acknowledgements](#acknowledgements)
+9. [Youtube Playlist](#Youtube)
+10. [License](#license)
 
 ## 💡 About the Project <a name="about-the-project"></a>
 
 This project features a unique robot capable of seamlessly transitioning between a humanoid form and a vehicle form. Standing 70 cm tall and weighing 3.25 kg, the robot combines entertainment and interactivity with practicality.
 
 The robot is designed to provide a fun and engaging user experience, recognizing faces, waving hello, and responding to voice commands like “Transform” using TinyML technology. Entirely wireless, it can be controlled through a web interface hosted on a Pico W, making it adaptable to various environments and perfect for delivering entertainment with a practical twist.
+
+## Badges <a name="badges"></a>
+
+![C](https://img.shields.io/badge/C-00599C?style=for-the-badge&logo=c&logoColor=white)
+![C++](https://img.shields.io/badge/C++-00599C?style=for-the-badge&logo=c%2B%2B&logoColor=white)
+![Raspberry Pi](https://img.shields.io/badge/Raspberry%20Pi-A22846?style=for-the-badge&logo=raspberry-pi&logoColor=white)
+![Arduino](https://img.shields.io/badge/Arduino-00979D?style=for-the-badge&logo=arduino&logoColor=white)
+![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
+![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
+![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
+![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
+![Edge Impulse](https://img.shields.io/badge/Edge%20Impulse-009FDF?style=for-the-badge&logo=edge-impulse&logoColor=white)
+![TensorFlow](https://img.shields.io/badge/TensorFlow-FF6F00?style=for-the-badge&logo=tensorflow&logoColor=white)
 
 ## 🚀 Features <a name="features"></a>
 

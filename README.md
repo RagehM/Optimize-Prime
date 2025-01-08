@@ -51,6 +51,8 @@ The robot is designed to provide a fun and engaging user experience, recognizing
 - **Face Recognition Module: RP 3 Model B**
   - The code in the Raspberry PI 3 that uses OpenCV for facial recognition
 
+## I <a name=""></a>
+
 ## The team <a name="Team"></a>
 
 Marawan Abdelrahman

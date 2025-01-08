@@ -4,6 +4,8 @@
 #include "hardware/i2c.h"
 #include <string>
 
+// this library is used to enable I2C communication between the Raspberry Pi Pico (Slave) and the Arduino Nano RP2040 (Master) and enable interrupt upon a read request from the master
+
 #define I2C_PORT i2c0
 #define I2C_BAUDRATE 100000
 #define SDA_PIN 16

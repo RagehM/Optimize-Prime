@@ -3,6 +3,8 @@
 #include "hardware/irq.h"
 #include "reset.h"
 
+// this library is used to enable the transformation in case Wifi or Mic is not working
+
 void initialize_reset_pin() {
   printf("Initializing reset pin\n");
   gpio_init(TRANSFORM_EMERGENCY_PIN);

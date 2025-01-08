@@ -132,10 +132,13 @@ void on_pdm_samples_ready()
 
 #define DELAY 3000
 int i = 0;
+
 // This is the i2c Codes that is being sent and recieved by Pico and Arduino
-uint8_t send_buffer[8] = "0R";
-uint8_t send_buffer2[8] = "0O";
-uint8_t send_buffer3[8] = "0M";
+// these codes are named after the collaborators in the project :)
+uint8_t send_buffer[8] = "0R"; // R for Rageh
+uint8_t send_buffer2[8] = "0O"; // O for Omar
+uint8_t send_buffer3[8] = "0M"; // M for Marawan
+
 // uint8_t receive_buffer[8];
 ServoCluster* globalservosThigh = nullptr;
 ServoCluster* globalservosThighKneesandFeet = nullptr;
@@ -151,7 +154,7 @@ void TransformLower(ServoCluster &servosThighKneesandFeet) {
 	float endAngles9[] = {90.0 + 25, 99.0 - 25, 0.0 + 25.0, 180.0 - 25.0 ,86.0+20, 90.0- 20, 70,110};
 	globalservosThighKneesandFeet->moveMultipleServosSmoothly(endAngles9, 1000); // Reduced step delay for smoother movement
 
-	i2c_write_blocking(I2C_PORT, SLAVE_ADDRESS, send_buffer, 8, false);
+	i2c_write_blocking(I2C_PORT, SLAVE_ADDRESS, send_buffer, 8, false); // sending the a write req to the slave with the msg in the send buffer
 	printf("Sent: %s\n", send_buffer);
 	sleep_ms(500);
 	float endAngles6[] = {90.0 - 52, 99.0 + 52, 0.0 + 50, 180.0 - 50 ,90 + 70, 90 - 70, 70, 110};
@@ -170,7 +173,7 @@ void transformBack(ServoCluster &servosThighKneesandFeet) {
 	float endAngles8[] = {90.0 - 32, 99.0 + 24, 0.0 +40, 180.0 - 40 ,90 + 60, 90 - 60, 20, 160};
 	globalservosThighKneesandFeet->moveMultipleServosSmoothly(endAngles8, 5000); // Reduced step delay for smoother movement
 
-	i2c_write_blocking(I2C_PORT, SLAVE_ADDRESS, send_buffer2, 8, false);
+	i2c_write_blocking(I2C_PORT, SLAVE_ADDRESS, send_buffer2, 8, false); // sending the a write req to the slave with the msg in the send buffer
 	printf("Sent: %s\n", send_buffer);
 
 	

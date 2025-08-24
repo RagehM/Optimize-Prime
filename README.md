@@ -3,7 +3,7 @@
 > Smart Self Transforming Robot
 
 <div align="center">
-    <img src="https://i.imghippo.com/files/aue3999Hec.png" alt="Optimus" width="300"/>
+    <img src="https://i.ibb.co/r5sXBBm/aue3999-Hec.png" alt="Optimus" width="300"/>
 </div>
 
 ## 📑 Table of Contents
